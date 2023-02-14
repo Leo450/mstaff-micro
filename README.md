@@ -41,7 +41,7 @@ Have Docker.
 - ``git clone [REPOSITORY_URL] --recurse-submodules``
 
 **[Fix detached HEAD](#fix-detached-head)**
-- ``cd`` your project
+- ``cd`` into your project
 - ``git submodule foreach --recursive 'git checkout main'``
 
 **[Run](#run)**
