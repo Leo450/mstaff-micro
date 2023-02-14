@@ -37,14 +37,14 @@ Have Docker.
 
 ### Recap
 
-**[Clone](#cloning)**
+**[Clone](#clone)**
 - ``git clone [REPOSITORY_URL] --recurse-submodules``
 
-**[Fix detached HEAD](#detached-head)**
+**[Fix detached HEAD](#fix-detached-head)**
 - ``cd`` your project
 - ``git submodule foreach --recursive 'git checkout main'``
 
-**[Run](#run-containers)**
+**[Run](#run)**
 - ``docker network create mstaff-micro.network``
 - ```
   docker-compose -f apps/web-server/docker-compose.yml up -d &&\
