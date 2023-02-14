@@ -35,6 +35,25 @@ To achieve that, we prefer Git submodules flexibility :
 
 Have Docker.
 
+### Recap
+
+**[Clone](#cloning)**
+- ``git clone [REPOSITORY_URL] --recurse-submodules``
+
+**[Fix detached HEAD](#detached-head)**
+- ``cd`` your project
+- ``git submodule foreach --recursive 'git checkout main'``
+
+**[Run](#run-containers)**
+- ``docker network create mstaff-micro.network``
+- ```
+  docker-compose -f apps/web-server/docker-compose.yml up -d &&\
+  docker-compose -f apps/front-symfo-1/docker-compose.yml up -d &&\
+  docker-compose -f apps/front-symfo-2/docker-compose.yml up -d &&\
+  docker-compose -f apps/front-vue-1/docker-compose.yml up -d &&\
+  docker-compose -f apps/front-vue-2/docker-compose.yml up -d
+  ```
+
 ### Cloning
 
 Clone the main project by running ``git clone [REPOSITORY_URL] --recurse-submodules``.
