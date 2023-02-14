@@ -1,24 +1,32 @@
 [submodule "apps/front-symfo-1"]
 	path = apps/front-symfo-1
 	url = git@github.com:Leo450/mstaff-micro__front-symfo-1.git
+	branch = main
 [submodule "apps/front-symfo-2"]
 	path = apps/front-symfo-2
 	url = git@github.com:Leo450/mstaff-micro__front-symfo-2.git
+	branch = main
 [submodule "apps/front-vue-1"]
 	path = apps/front-vue-1
 	url = git@github.com:Leo450/mstaff-micro__front-vue-1.git
+	branch = main
 [submodule "apps/front-vue-2"]
 	path = apps/front-vue-2
 	url = git@github.com:Leo450/mstaff-micro__front-vue-2.git
+	branch = main
 [submodule "apps/web-server"]
 	path = apps/web-server
 	url = git@github.com:Leo450/mstaff-micro__web-server.git
+	branch = main
 [submodule "shared/ui"]
 	path = shared/ui
 	url = git@github.com:Leo450/mstaff-micro__shared__ui
+	branch = main
 [submodule "shared/entities"]
 	path = shared/entities
 	url = git@github.com:Leo450/mstaff-micro__shared__entities
+	branch = main
 [submodule "shared/repositories"]
 	path = shared/repositories
 	url = git@github.com:Leo450/mstaff-micro__shared__repositories
+	branch = main
