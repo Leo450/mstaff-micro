@@ -54,7 +54,7 @@ Have Docker.
   docker-compose -f apps/front-vue-2/docker-compose.yml up -d
   ```
 
-### Cloning
+### Clone
 
 Clone the main project by running ``git clone [REPOSITORY_URL] --recurse-submodules``.
 
@@ -62,13 +62,13 @@ Do not forget the ``--recurse-submodules`` option, it will automatically initial
 
 If you forgot to add the ``--recurse-submodules`` option, you can manually go into each app and either run ``git submodule init`` and ``git submodule update``, or just ``git submodule update --init`` which is a shortcut for the two previous commands. To also initialize, fetch and checkout any nested submodules, you can use the foolproof ``git submodule update --init --recursive``.
 
-### Detached HEAD
+### Fix detached HEAD
 
 The only issue here is that even if all your submodules have been initialized and updated, the pointers in your superprojects are just pointing to single commit hashes and not to branches, resulting in each submodule HEAD being detached from their ``main`` branch.\
 
 We need to manually explicitly checkout the ``main`` branch of each submodule by running ``git submodule foreach --recursive 'git checkout main'``.
 
-### Run containers
+### Run
 
 First, create docker network by running ``docker network create mstaff-micro.network``.
 
