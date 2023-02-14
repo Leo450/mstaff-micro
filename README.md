@@ -1,6 +1,6 @@
 # Mstaff micro apps POC
 
-This POC has been made to demonstrate how we can split our application into multiple micro applications (frontend for now).
+This POC has been made to demonstrate how we can split our application into multiple micro applications (frontends for now).
 
 The goal is to have multiple frontends for different part in a same application. The navigation between them must be seamless, the user must feel like he is still using the same app even if he is redirected from one to another.
 
@@ -29,7 +29,7 @@ To achieve that, we prefer Git submodules flexibility :
   *You can for instance modify a submodule directly from within a project and push onto a different branch without impacting other projects until you explicitely tell other projects to use this branch.\
   Even if you merge this branch into the main branch, you have to manually update submodules in other projects to tell them to point to the last commit of the main branch.*
 
-## How to install
+## How to install locally
 
 ### Prerequisites
 
@@ -37,11 +37,17 @@ Have Docker.
 
 ### Cloning
 
-Clone the main project.
+Clone the main project by running ``git clone [REPOSITORY_URL] --recurse-submodules``.
+
+Do not forget the ``--recurse-submodules`` option, it will automatically initialize and update each submodule in the repository, including nested submodules because apps submodules in the main repository have submodules themselves.
+
+If you forgot to add the ``--recurse-submodules`` option, you can manually go into each app and either run ``git submodule init`` and ``git submodule update``, or just ``git submodule update --init`` which is a shortcut for the two previous commands. To also initialize, fetch and checkout any nested submodules, you can use the foolproof ``git submodule update --init --recursive``.
 
 ### Run containers
 
-In ``apps`` directory, go in each app you want to start and run ``docker-compose up -d``.
+First, create docker network by running ``docker network create mstaff-micro.network``.
+
+Then, go into each app you want to start and run ``docker-compose up -d``.
 
 ### Access apps
 
@@ -57,14 +63,54 @@ They are also directly served on some ports for dev purposes :
 - Vue 1 : ``http://localhost:22000``
 - Vue 2 : ``http://localhost:22001``
 
-## How it works
+## How are my apps served locally
 
 ### About structure
 
 All apps are in ``apps`` directory.\
-All shared pieces of code (submodules) are in ``shared`` directory. This is for demonstration purposes and not realy required. You can either modify those submodules from those directories or directly from within a project.\
-*More about submodules below.*
+All shared pieces of code (submodules) are in ``shared`` directory. This is for demonstration purposes and not realy required. You can either modify those submodules from those directories or directly from within a project.
+
+### Apps servers
 
 All project are for now using their respective technologies dev servers to be served.
 - So ``webpack-dev-server`` for Vue apps : https://webpack.js.org/configuration/dev-server/.
 - And ``Symfony Local Web Server`` for Symfony apps : https://symfony.com/doc/current/setup/symfony_server.html.
+
+### Main Web Server
+
+The ``web-server`` port ``20000`` is exposed and he is serving apps under sub urls via url rewriting. You can find Nginx configuration and those rules in ``apps/web-server/nginx.conf``.
+
+Apps containers share a docker network named ``mstaff-micro.network``.\
+This allows the ``web-server`` app, which is just a Nginx container, to point directly to other apps containers.
+
+## What does it demonstrate
+
+### Code sharing via submodules
+
+- **Both ``Symfony`` apps are sharing ``Entities`` and ``Repositories``**
+  It will be much simpler to ensure that all database structure modifications are reflected onto all our Symfony apps, if they are all plugged onto a same DB for instance.
+
+- **Both ``VueJS`` apps are sharing ``UI Components``**
+  It will be much simpler to create a standardised Design System and ensure all the apps look the same.
+
+### Data sharing via Cookies and redirection
+
+All apps must share data between each other.
+
+The first use case that comes to mind is *authentication data*, like tokens or user data. Vue apps are considered as *authenticated* apps. You should be redirected to a Symfony app if you are not logged in.
+
+- All apps all have buttons to create/remove a dummy ``token`` cookie.
+- Vue apps have a ``beforeEach`` router middleware to check if the ``token`` cookie is set. If it's not, it is redirecting to Symfony app 1.
+
+## More about using submodules
+
+The simplest way to use submodules in my opinion, and the main thing to understand, is that when you ``cd`` into a submodule directory from within a superproject, you are basically working on this submodule repository like if it was just a simple repository. You can make changes, commit, push and pull as you are used to.
+
+The only thing to remember is if you pushed changes to a submodule, the remote repository of the superproject is still pointing to the older commit of the submodule.\
+If you go back into your superproject and run a ``git status`` it will show you that you have modifications on the submodules directories with the annotation ``(New commits)``.\
+You need to also commit and push those modifications, which are just new submodules commit pointers, to you superproject repository. If you do so and go to Github, you will see on your submodules directories that the hash of the commit they point to just changed.\
+![alt text](readme-img.png "submodule commit")
+
+### In depth
+
+https://git-scm.com/book/en/v2/Git-Tools-Submodules
