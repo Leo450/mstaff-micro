@@ -31,4 +31,40 @@ To achieve that, we prefer Git submodules flexibility :
 
 ## How to install
 
-TODO
+### Prerequisites
+
+Have Docker.
+
+### Cloning
+
+Clone the main project.
+
+### Run containers
+
+In ``apps`` directory, go in each app you want to start and run ``docker-compose up -d``.
+
+### Access apps
+
+Once started, all apps are served through the ``web-server`` app under their own respective urls :
+- Symfony 1 : ``http://localhost:20000/front-symfo-1``
+- Symfony 2 : ``http://localhost:20000/front-symfo-2``
+- Vue 1 : ``http://localhost:20000/front-vue-1``
+- Vue 2 : ``http://localhost:20000/front-vue-2``
+
+They are also directly served on some ports for dev purposes :
+- Symfony 1 : ``http://localhost:21000``
+- Symfony 2 : ``http://localhost:21001``
+- Vue 1 : ``http://localhost:22000``
+- Vue 2 : ``http://localhost:22001``
+
+## How it works
+
+### About structure
+
+All apps are in ``apps`` directory.\
+All shared pieces of code (submodules) are in ``shared`` directory. This is for demonstration purposes and not realy required. You can either modify those submodules from those directories or directly from within a project.\
+*More about submodules below.*
+
+All project are for now using their respective technologies dev servers to be served.
+- So ``webpack-dev-server`` for Vue apps : https://webpack.js.org/configuration/dev-server/.
+- And ``Symfony Local Web Server`` for Symfony apps : https://symfony.com/doc/current/setup/symfony_server.html.
