@@ -13,6 +13,9 @@
 [submodule "apps/web-server"]
 	path = apps/web-server
 	url = git@github.com:Leo450/mstaff-micro__web-server.git
+[submodule "apps/storybook"]
+	path = apps/storybook
+	url = git@github.com:Leo450/mstaff-micro__storybook.git
 [submodule "shared/ui"]
 	path = shared/ui
 	url = git@github.com:Leo450/mstaff-micro__shared__ui
@@ -22,6 +25,3 @@
 [submodule "shared/repositories"]
 	path = shared/repositories
 	url = git@github.com:Leo450/mstaff-micro__shared__repositories
-[submodule "apps/storybook"]
-	path = apps/storybook
-	url = git@github.com:Leo450/mstaff-micro__storybook.git
