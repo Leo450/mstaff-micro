@@ -22,3 +22,6 @@
 [submodule "shared/repositories"]
 	path = shared/repositories
 	url = git@github.com:Leo450/mstaff-micro__shared__repositories
+[submodule "apps/storybook"]
+	path = apps/storybook
+	url = git@github.com:Leo450/mstaff-micro__storybook.git
