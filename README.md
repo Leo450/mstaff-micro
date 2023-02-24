@@ -154,6 +154,12 @@ If you go back into your superproject and run a ``git status`` it will show you 
 You need to also commit and push those modifications, which are just new submodules commit pointers, to you superproject repository. If you do so and go to Github, you will see on your submodules directories that the hash of the commit they point to just changed.\
 ![alt text](readme-img.png "submodule commit")
 
+### Some helper commands
+
+Add, commit and push all changes in all submodules
+- `git submodule foreach --recursive 'git add .' `
+- `git submodule foreach --recursive 'git commit -am "qzd" && git push || true' `
+
 ### In depth
 
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
