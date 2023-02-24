@@ -157,8 +157,7 @@ You need to also commit and push those modifications, which are just new submodu
 ### Some helper commands
 
 Add, commit and push all changes in all submodules
-- `git submodule foreach --recursive 'git add .' `
-- `git submodule foreach --recursive 'git commit -am "qzd" && git push || true' `
+- `git submodule foreach --recursive 'git add . && git commit -am "auto" && git push || true'`
 
 Update all submodules and their files
 - `git submodule update --recursive --remote`
