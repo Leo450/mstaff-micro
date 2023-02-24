@@ -160,6 +160,9 @@ Add, commit and push all changes in all submodules
 - `git submodule foreach --recursive 'git add .' `
 - `git submodule foreach --recursive 'git commit -am "qzd" && git push || true' `
 
+Update all submodules and their files
+- `git submodule update --recursive --remote`
+
 ### In depth
 
 https://git-scm.com/book/en/v2/Git-Tools-Submodules
