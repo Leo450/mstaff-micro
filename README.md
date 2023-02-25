@@ -47,12 +47,14 @@ Have Docker.
 **[Run](#run)**
 - ``docker network create mstaff-micro.network``
 - ```
-  docker-compose -f apps/web-server/docker-compose.yml up -d &&\
-  docker-compose -f apps/front-symfo-1/docker-compose.yml up -d &&\
-  docker-compose -f apps/front-symfo-2/docker-compose.yml up -d &&\
-  docker-compose -f apps/front-vue-1/docker-compose.yml up -d &&\
-  docker-compose -f apps/front-vue-2/docker-compose.yml up -d
+  docker-compose -f apps/web-server/docker-compose.dev.yml up -d &&\
+  docker-compose -f apps/front-symfo-1/docker-compose.dev.yml up -d &&\
+  docker-compose -f apps/front-symfo-2/docker-compose.dev.yml up -d &&\
+  docker-compose -f apps/front-vue-1/docker-compose.dev.yml up -d &&\
+  docker-compose -f apps/front-vue-2/docker-compose.dev.yml up -d
   ```
+  Replace `docker-compose.dev.yml` by `docker-compose.prod.yml`.\
+  If you do so, you must be sure that all application have been built and their dependencies have been installed. I'm connecting into dev containers to do that for now.
 
 ### Clone
 
@@ -74,23 +76,23 @@ First, create docker network by running ``docker network create mstaff-micro.net
 
 Then run this command to start all containers.
 ```
-docker-compose -f apps/web-server/docker-compose.yml up -d &&\
-docker-compose -f apps/front-symfo-1/docker-compose.yml up -d &&\
-docker-compose -f apps/front-symfo-2/docker-compose.yml up -d &&\
-docker-compose -f apps/front-vue-1/docker-compose.yml up -d &&\
-docker-compose -f apps/front-vue-2/docker-compose.yml up -d
+docker-compose -f apps/web-server/docker-compose.dev.yml up -d &&\
+docker-compose -f apps/front-symfo-1/docker-compose.dev.yml up -d &&\
+docker-compose -f apps/front-symfo-2/docker-compose.dev.yml up -d &&\
+docker-compose -f apps/front-vue-1/docker-compose.dev.yml up -d &&\
+docker-compose -f apps/front-vue-2/docker-compose.dev.yml up -d
 ```
 
 And this command to stop and remove them all.
 ```
-docker-compose -f apps/web-server/docker-compose.yml down &&\
-docker-compose -f apps/front-symfo-1/docker-compose.yml down &&\
-docker-compose -f apps/front-symfo-2/docker-compose.yml down &&\
-docker-compose -f apps/front-vue-1/docker-compose.yml down &&\
-docker-compose -f apps/front-vue-2/docker-compose.yml down
+docker-compose -f apps/web-server/docker-compose.dev.yml down &&\
+docker-compose -f apps/front-symfo-1/docker-compose.dev.yml down &&\
+docker-compose -f apps/front-symfo-2/docker-compose.dev.yml down &&\
+docker-compose -f apps/front-vue-1/docker-compose.dev.yml down &&\
+docker-compose -f apps/front-vue-2/docker-compose.dev.yml down
 ```
 
-Or go into each app you want to start and run ``docker-compose up -d`` to start its container and ``docker-compose down`` to stop it.
+Or go into each app you want to start and run ``docker-compose -f docker-compose.dev.yml up -d`` to start its container and ``docker-compose -f docker-compose.dev.yml down`` to stop it.
 
 ### Access apps
 
@@ -99,12 +101,14 @@ Once started, all apps are served through the ``web-server`` app under their own
 - Symfony 2 : ``http://localhost:20000/front-symfo-2``
 - Vue 1 : ``http://localhost:20000/front-vue-1``
 - Vue 2 : ``http://localhost:20000/front-vue-2``
+- Storybook : ``http://localhost:20000/storybook``
 
 They are also directly served on some ports for dev purposes :
 - Symfony 1 : ``http://localhost:21000``
 - Symfony 2 : ``http://localhost:21001``
 - Vue 1 : ``http://localhost:22000``
 - Vue 2 : ``http://localhost:22001``
+- Storybook : ``http://localhost:23000``
 
 ## How are my apps served locally
 
@@ -116,7 +120,7 @@ All shared pieces of code (submodules) are in ``shared`` directory. This is for 
 ### Apps servers
 
 All project are for now using their respective technologies dev servers to be served.
-- So ``webpack-dev-server`` for Vue apps : https://webpack.js.org/configuration/dev-server/.
+- So ``webpack-dev-server`` for Vue apps and Storybook : https://webpack.js.org/configuration/dev-server/.
 - And ``Symfony Local Web Server`` for Symfony apps : https://symfony.com/doc/current/setup/symfony_server.html.
 
 ### Main Web Server
@@ -157,10 +161,10 @@ You need to also commit and push those modifications, which are just new submodu
 ### Some helper commands
 
 Add, commit and push all changes in all submodules
-- `git submodule foreach --recursive 'git add . && git commit -am "auto" && git push || true'`
+- `git submodule foreach --recursive 'git add . && git commit -am "auto" && git push || true' && git add . && git commit -am "auto" && git push`
 
 Update all submodules and their files
-- `git submodule foreach --recursive 'git pull'`
+- `git submodule foreach --recursive 'git pull' && git pull`
 
 ### In depth
 
