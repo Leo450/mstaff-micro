@@ -29,6 +29,23 @@ To achieve that, we prefer Git submodules flexibility :
   *You can for instance modify a submodule directly from within a project and push onto a different branch without impacting other projects until you explicitely tell other projects to use this branch.\
   Even if you merge this branch into the main branch, you have to manually update submodules in other projects to tell them to point to the last commit of the main branch.*
 
+## Why submodules over packages ?
+
+Because publishing and using packages is a solution to a problematic git is already solving.
+
+First let’s ask ourselves what do we want ?
+
+- A place where we can edit our shared code and publish modifications.
+- A way to import this code into many projects.
+- This code must be versioned and we want to be able to choose which version of each piece of shared code we use in each project.
+
+Yes if you use packages you’ll be able to do all that. But git submodules also let you do the exact same thing, and you are already using git right ? Why use many tools to solve a problem that a tool your already have is already solving ? It looks redundant and useless.
+
+Furthermore, in our multiple technology applications context, if we were using packages, we would have to deploy and maintain them onto multiple package managers as well. On `npm` for our Vue apps, on `composer` for our Symfony apps. It looks much simpler to have only one place, one tool, and one set of commands to know to manage everything.
+
+Also, packages are less flexible than submodules, mostly because with package managers, you can't choose were your shared code will end in your project's architecture. It will necessarily be in `node_modules` for `npm` and in `vendor` for `composer`.\
+That is not the case with submodules, you can put anything anywhere, and it can be very handy and save from having to do some specific configuration to expose your files to your framework.
+
 ## How to install locally
 
 ### Prerequisites
